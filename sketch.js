@@ -1,8 +1,11 @@
+let img;
+
 function setup() {
   createCanvas(800, 800);
-  2b3();
+  img = loadImage('');
 }
 
 function draw() {
-  background(202);
+  background(200);
+  image(img, 0, 0);
 }
