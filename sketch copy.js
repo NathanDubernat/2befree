@@ -1,9 +1,15 @@
-var num = 10000;
-var noiseScale=1000, noiseStrength=100;
+var num = 1000;
+var noiseScale=500, noiseStrength=100;
 var particles = [num];
+
+let img;
+function preload() {
+  img = loadImage('couleurs.jpg');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 1);
   noStroke();
   for (let i=0; i<num; i++) {
     var loc = createVector(random(width*1.2), random(height), 2);
@@ -12,15 +18,17 @@ function setup() {
     var speed = random(0.5,2);
     particles[i]= new Particle(loc, dir, speed);
   }
+  
+    updatePixels(0, 0, width, height);
+    set(0, 0, img);
+    loadPixels();
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 function draw() {
-  fill(0, 10);
   noStroke();
-  circle(width/2, height/2, height);
   for (let i=0; i<particles.length; i++) {
     particles[i].run();
   }
@@ -34,7 +42,6 @@ class Particle{
   }
   run() {
     this.move();
-    this.checkEdges();
     this.update();
   }
   move(){
@@ -42,19 +49,13 @@ class Particle{
     this.dir.x = cos(angle);
     this.dir.y = sin(angle);
     var vel = this.dir.copy();
-    var d =1; 
+    var d =1;
     vel.mult(this.speed*d);
     this.loc.add(vel);
   }
-  checkEdges(){
-    let distance = dist(width/2, height/2, this.loc.x, this.loc.y);
-    if (distance>width/2) {
-      this.loc.x = random(width*1.2);
-      this.loc.y = random(height);
-    }
-  }
+ 
   update(){
-    fill(255);
+    fil
     ellipse(this.loc.x, this.loc.y, this.loc.z);
   }
 }
