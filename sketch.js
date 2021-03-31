@@ -1,19 +1,19 @@
 let img;
 function preload() {
-  img = loadImage('couleurs.jpeg');
+  img = loadImage('nandu-menon.jpg');
 }
 
-var num = 10000;
+var num = 4000;
 var noiseScale=500, noiseStrength=100;
 var particles = [num];
 
 function setup() {
-  let photo = createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight);
   noStroke();
   pixelDensity(4);
   for (let i=0; i<num; i++) {
     var loc = createVector(random(width*1.2), random(height), 2);
-    var angle = 0; //any value to initialize
+    var angle = 0;
     var dir = createVector(cos(angle), sin(angle));
     var speed = random(0.5,2);
     particles[i]= new Particle(loc, dir, speed);
@@ -25,7 +25,6 @@ function windowResized() {
 }
 
 function draw() {
-  saveCanvas('photo', 'png');
   noStroke();
   for (let i=0; i<particles.length; i++) {
     particles[i].run();
@@ -43,13 +42,13 @@ class Particle{
     this.update();
   }
   move(){
-    let angle=noise(this.loc.x/noiseScale, this.loc.y/noiseScale, frameCount/noiseScale)*TWO_PI*noiseStrength; //0-2PI
+    let angle=noise(this.loc.x/noiseScale, this.loc.y/noiseScale, frameCount/noiseScale)*TWO_PI*noiseStrength;
     this.dir.x = cos(angle);
     this.dir.y = sin(angle);
     var vel = this.dir.copy();
-    var d =1;  //direction change 
-    vel.mult(this.speed*d); //vel = vel * (speed*d)
-    this.loc.add(vel); //loc = loc + vel
+    var d =1;
+    vel.mult(this.speed*d);
+    this.loc.add(vel);
   }
  
   update() {
