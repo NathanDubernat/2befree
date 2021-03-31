@@ -3,12 +3,12 @@ function preload() {
   img = loadImage('couleurs.jpeg');
 }
 
-var num = 3000;
+var num = 10000;
 var noiseScale=500, noiseStrength=100;
 var particles = [num];
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let photo = createCanvas(windowWidth, windowHeight);
   noStroke();
   pixelDensity(4);
   for (let i=0; i<num; i++) {
@@ -23,7 +23,9 @@ function setup() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
 function draw() {
+  saveCanvas('photo', 'png');
   noStroke();
   for (let i=0; i<particles.length; i++) {
     particles[i].run();
